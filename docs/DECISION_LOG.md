@@ -108,3 +108,15 @@ functions (`read_text`/`glob`/…) — a query could read local files; fixed by 
 enable_external_access=false` after load plus a keyword block; (5) the **row cap** could be defeated
 by a trailing SQL comment — fixed by wrapping queries in a capped subquery. Lesson worth keeping:
 verify the failure paths, not just the demo.
+
+### D16 — "2024-2025" doesn't mean forecast — but I added a caveated one anyway
+**Why:** Considered whether the brief's "report on 2024-2025" (vs. 2023-2024 data) implied I should
+*forecast* 2025. Concluded the brief is retrospective ("presents", "reporting on") — no forecast
+required — and reached out to Anj to confirm the window. But since the role is Data & AI and the
+brief invites "anything valuable for an ops manager", I added a forward view (`src/forecast.py`):
+a baseline **volume forecast** (after testing for trend/seasonality and finding none — slope≈0,
+R²=0.0007 — so a confident flat line, not a spurious trend) and a **business-day capacity projection**
+that turns the steady ~183/day arrival rate into load-per-staffed-day per future quarter using the NZ
+holiday calendar. The honest framing (flat forecast + narrow band is a synthetic-data tell; the value
+is the capacity view) demonstrates forecasting skill **and** the judgement to know when the signal is
+weak. Independent of the year filter. Methodology in `docs/FORECAST_METHODOLOGY.md`.

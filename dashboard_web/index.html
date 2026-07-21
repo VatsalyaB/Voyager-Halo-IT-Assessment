@@ -111,6 +111,22 @@
       </div>
     </div>
 
+    <div class="section-title">Beyond the essentials · forecast &amp; capacity</div>
+    <div class="grid">
+      <div class="card col-8">
+        <h3>Ticket volume forecast</h3>
+        <p class="hint">Complete months (2023-07 → 2024-12) + a 6-month baseline forecast with 80/95% bands.
+          No significant trend or seasonality, so the forecast is a confident flat line. <em>Independent of the year filter.</em></p>
+        <div class="chart tall" id="c_forecast"></div>
+      </div>
+      <div class="card col-4">
+        <h3>Business-day capacity projection</h3>
+        <p class="hint">Steady arrivals ÷ staffed business days = load per staffed day. Holidays cut capacity.</p>
+        <div id="capacity"></div>
+      </div>
+    </div>
+    <p class="note" id="forecastnote"></p>
+
     <div class="section-title">Data quality — a finding for the ops manager</div>
     <div class="grid">
       <div class="card col-12 dq">
@@ -134,6 +150,7 @@
 
   <script src="vendor/echarts.min.js"></script>
   <script src="data.js"></script>
+  <script src="forecast.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

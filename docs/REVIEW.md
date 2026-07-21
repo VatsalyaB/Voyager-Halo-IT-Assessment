@@ -31,7 +31,9 @@ reproducible offline.
 3. **Model.** Built a star schema (fact + `dim_date` / `dim_customer` / `dim_category`) so both
    the Power BI model and the analytics are clean and reusable.
 4. **Visualise (Part 2).** A self-contained web dashboard (built and verified in a real browser)
-   plus a complete Power BI build guide with every DAX measure, so the story is told both ways.
+   plus a complete Power BI build guide with every DAX measure, so the story is told both ways. As a
+   "beyond the essentials" addition I also built a caveated **volume forecast** and a **business-day
+   capacity projection**.
 5. **AI agent (Part 3).** A DuckDB query layer with a read-only safety gate, an LLM text-to-SQL
    layer, and a deterministic offline fallback.
 6. **Document as I went** — a running decision log became the source for this review.
@@ -72,11 +74,20 @@ MSP is measured on), **prove** why recomputing from the timestamps is unsafe (th
 then make the discrepancy **visible** in a dedicated Data-Quality panel with a recommendation to
 audit the source — rather than silently trusting one field or hiding the problem.
 
-**What I'd do differently / next:** with more time I'd (a) add SLA measured in *business hours*
-using the holiday calendar as a headline (it's derived and available but I kept it secondary);
-(b) raise the date-window mismatch with the hiring team before finalising the default view
-(I've defaulted to 2024–2025 per the brief with an all-years filter, and drafted a short
-clarifying question); and (c) add automated tests around the cleaning rules.
+On the **date-window mismatch** I reached out to the hiring team (Anj) to confirm the intended
+period, and in the meantime defaulted to 2024–2025 per the brief with an all-years filter. That
+also prompted a nice judgement exercise: I considered whether "2024–2025" implied I should *forecast*
+2025 from prior data, and concluded the brief is retrospective — but added a **forecast + capacity
+projection** anyway as a value-add. Building it *was* the lesson: the series has no real trend or
+seasonality (R² ≈ 0), so the honest output is a confident flat forecast plus an actionable
+business-day capacity view, not a spurious growth curve — and the suspiciously low variance is itself
+a synthetic-data tell.
+
+**What I'd still do with more time:** surface SLA measured in *business hours* (using the holiday
+calendar) as a headline rather than a secondary metric; and add automated tests around the cleaning
+rules. I also ran an adversarial self-review of my own code that caught five real bugs (a security
+hole in the agent's query gate, two dashboard miscalculations, a robustness crash, and a row-cap
+bypass) — a reminder to verify the failure paths, not just the demo.
 
 ## 5. Roughly how long did you spend on each phase?
 
@@ -89,8 +100,9 @@ clarifying question); and (c) add automated tests around the cleaning rules.
 | Part 2 — web dashboard (build + browser-verify) | ~2 hrs |
 | Part 2 — Power BI model + build guide | ~1 hr |
 | Part 3 — AI agent (engine, fallback, UI) | ~2 hrs |
-| Documentation & review | ~1 hr |
-| **Total** | **~9 hrs** |
+| Forecast & capacity value-add | ~1 hr |
+| Documentation, self-review & fixes | ~1.5 hrs |
+| **Total** | **~10.5 hrs** |
 
 ## 6. Did you use AI tools during this practical? If so, how?
 

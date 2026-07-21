@@ -36,7 +36,8 @@ raised, *how* they're handled, and *where* to improve, from a 100,851-row ticket
 
 ### Part 2 — Visualise  (`dashboard_web/`, `powerbi/`)
 - **Web dashboard** — self-contained HTML/ECharts, light/dark, 2024-2025 default + year filter,
-  KPIs · issues · status/resolution · **holiday/business-day view** · team/region · **data-quality panel**.
+  KPIs · issues · status/resolution · **holiday/business-day view** · team/region · **data-quality panel**
+  · a **forecast & business-day capacity projection** (beyond the essentials — see below).
   Open `dashboard_web/index.html`. ([light](docs/screenshots/dashboard-light.png) · [dark](docs/screenshots/dashboard-dark.png))
 - **Power BI** — model-ready star-schema CSVs + a complete step-by-step build guide
   (relationships, all 15 DAX measures, six pages): [`powerbi/BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md).
@@ -53,6 +54,16 @@ only **~50%** of the time — no better than chance — and 50 tickets are "reso
 were created. Rather than hide it, the dashboard **reports the system-of-record field and
 surfaces the gap** in a Data-Quality panel, with a recommendation to audit the source system.
 
+## Beyond the essentials — forecast & capacity
+The dashboard closes with a forward-looking section (`src/forecast.py`,
+[`docs/FORECAST_METHODOLOGY.md`](docs/FORECAST_METHODOLOGY.md)). I tested the monthly series for
+trend and seasonality, found **none** (slope ≈ 0, R² = 0.0007), so the volume forecast is a
+**confident flat baseline** — and I flag that the unusually low variance is itself a synthetic-data
+tell. The genuinely actionable piece is a **business-day capacity projection**: steady arrivals
+(~183/day) ÷ staffed business days = the load each staffed day must clear per future quarter, with
+public holidays compressing capacity. It demonstrates forecasting *and* the judgment to know when the
+signal is weak.
+
 ## Reproduce end-to-end
 ```bash
 python -m venv .venv && .venv/Scripts/pip install -r requirements.txt   # Windows
@@ -60,6 +71,7 @@ python src/fetch_holidays.py        # external data
 python src/clean_data.py            # clean + join -> fact table + DQ report
 python src/build_star_schema.py     # Power BI star schema
 python src/build_dashboard_data.py  # web dashboard data (data.js/json)
+python src/forecast.py              # forecast + capacity projection (forecast.js + methodology)
 # then: open dashboard_web/index.html   ·   streamlit run agent/app.py
 ```
 

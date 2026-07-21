@@ -247,6 +247,12 @@ decimals in **Format ▸ Callout value**.
 - **Y-axis (Values):** Total Tickets
 - Format: enable data labels off for density; if using `month_name`, set its
   **Sort by column** to `dim_date[month]` so months order Jan→Dec.
+- **Optional forward view:** with the line chart selected (use a continuous
+  `dim_date[date]`/month axis), open the **Analytics** pane (magnifying-glass icon) →
+  **Forecast** → *Add* to overlay Power BI's built-in forecast with a confidence band.
+  As the web dashboard notes, this series has no real trend or seasonality, so the
+  forecast is essentially flat — the actionable forward view is the business-day
+  **capacity projection** in `docs/FORECAST_METHODOLOGY.md`, not a growth curve.
 
 **Donut chart — tickets by theme.**
 - Visual: **Donut chart**

@@ -246,6 +246,65 @@
       { n: fmtInt(D.dq.category_rows_renormalised), t: "category labels cleaned (of " + fmtInt(D.dq.rows_in) + ")" },
       { n: fmtInt(D.dq.rows_dropped_bad_year), t: "corrupt-date rows removed" },
     ].map((f) => `<div class="flag"><div class="n">${f.n}</div><div class="t">${f.t}</div></div>`).join("");
+
+    renderForecast(ch);
+  }
+
+  // ---- forecast & capacity (independent of the year filter) ----------------
+  function renderForecast(ch) {
+    const F = window.FORECAST_DATA;
+    if (!F) return;
+    const hist = F.history, fc = F.forecast;
+    const months = hist.map((h) => h.month).concat(fc.map((f) => f.month));
+    const nH = hist.length;
+    const pad = (arr) => hist.map(() => null).concat(arr);
+    const histVals = hist.map((h) => h.n).concat(fc.map(() => null));
+    const fcLine = hist.map((h, i) => (i === nH - 1 ? h.n : null)).concat(fc.map((f) => f.mean));
+    const fcByMonth = new Map(fc.map((f) => [f.month, f]));
+    const band = (c, op) => c + op;
+    inst("c_forecast").setOption({
+      grid: baseGrid(ch, { left: 8, right: 16, top: 24 }),
+      legend: { top: 0, right: 0, data: ["Actual", "Forecast"], textStyle: { color: ch.ink2, fontSize: 11 },
+        itemWidth: 18, itemHeight: 8 },
+      tooltip: tip(ch, { trigger: "axis", formatter: (ps) => {
+        const mo = ps[0].axisValue, f = fcByMonth.get(mo);
+        if (f) return `${mo} (forecast)<br/><b>${fmtInt(f.mean)}</b>/mo<br/>` +
+          `<span style="color:${ch.muted}">95%: ${fmtInt(f.lo95)}–${fmtInt(f.hi95)}</span>`;
+        const a = ps.find((p) => p.seriesName === "Actual");
+        return a && a.value != null ? `${mo}<br/><b>${fmtInt(a.value)}</b> tickets` : mo;
+      } }),
+      xAxis: { type: "category", data: months, boundaryGap: false,
+        axisLabel: { color: ch.muted, fontSize: 10, rotate: 45 },
+        axisLine: { lineStyle: { color: ch.baseline } }, axisTick: { show: false } },
+      yAxis: { type: "value", scale: true, axisLabel: axisText(ch), splitLine: { lineStyle: { color: ch.grid } } },
+      series: [
+        // 95% band (base invisible + fill)
+        { name: "l95", type: "line", data: pad(fc.map((f) => f.lo95)), stack: "b95", symbol: "none",
+          lineStyle: { opacity: 0 }, areaStyle: { opacity: 0 }, silent: true },
+        { name: "95%", type: "line", data: pad(fc.map((f) => f.hi95 - f.lo95)), stack: "b95", symbol: "none",
+          lineStyle: { opacity: 0 }, areaStyle: { color: band(ch.series[0], "22") }, silent: true },
+        // 80% band on top
+        { name: "l80", type: "line", data: pad(fc.map((f) => f.lo80)), stack: "b80", symbol: "none",
+          lineStyle: { opacity: 0 }, areaStyle: { opacity: 0 }, silent: true },
+        { name: "80%", type: "line", data: pad(fc.map((f) => f.hi80 - f.lo80)), stack: "b80", symbol: "none",
+          lineStyle: { opacity: 0 }, areaStyle: { color: band(ch.series[0], "3a") }, silent: true },
+        { name: "Actual", type: "line", data: histVals, symbol: "circle", symbolSize: 5,
+          lineStyle: { color: ch.series[0], width: 2 }, itemStyle: { color: ch.series[0] } },
+        { name: "Forecast", type: "line", data: fcLine, symbol: "none",
+          lineStyle: { color: ch.series[0], width: 2, type: "dashed" }, itemStyle: { color: ch.series[0] } },
+      ],
+    }, true);
+
+    // capacity table
+    const rows = F.capacity.map((c) =>
+      `<tr><td>${c.quarter}</td><td>${fmtInt(c.expected_arrivals)}</td><td>${c.business_days}</td>` +
+      `<td>${c.load_per_business_day}</td></tr>`).join("");
+    document.getElementById("capacity").innerHTML =
+      `<table><thead><tr><th>Quarter</th><th>Arrivals</th><th>Biz days</th><th>Load/day</th></tr></thead>` +
+      `<tbody>${rows}</tbody></table>` +
+      `<p class="hint" style="margin-top:8px">Arrival rate ≈ ${F.diagnostics.daily_rate}/day · ` +
+      `trend R²=${F.diagnostics.trend_r2} (flat).</p>`;
+    document.getElementById("forecastnote").textContent = F.note;
   }
 
   // ---- window note --------------------------------------------------------

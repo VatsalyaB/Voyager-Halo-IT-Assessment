@@ -20,12 +20,14 @@ the portfolio-friendly counterpart to the Power BI version (see `../powerbi/`).
   / individual years) — rates and averages recompute client-side.
 - Light/dark theme (remembers your choice); colours follow a CVD-validated palette.
 - Sections: headline KPIs · volume & trend · ticket issues · status & time-to-resolution
-  · **external data (NZ holidays / business days)** · team & region · **data-quality panel**.
+  · **external data (NZ holidays / business days)** · team & region · **data-quality panel**
+  · **forecast & business-day capacity** (from `../src/forecast.py` → `forecast.js`).
 - Table views under the key charts (accessibility + exact numbers).
 
 ## Regenerate the data
 ```bash
 python ../src/build_dashboard_data.py   # rewrites data.js / data.json from the fact table
+python ../src/forecast.py               # rewrites forecast.js (volume forecast + capacity)
 ```
 
 See `docs/screenshots/` for light and dark captures.
