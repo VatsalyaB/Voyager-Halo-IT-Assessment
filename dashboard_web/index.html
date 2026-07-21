@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TechSolve IT — Support Operations</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1 class="title">TechSolve IT — Support Operations</h1>
+    <p class="subtitle">Managed-service support performance: what issues are raised, how they're
+      handled, and where to improve. Ticket data combined with NZ public-holiday &amp; business-day calendars.</p>
+  </header>
+
+  <div class="filterbar">
+    <div class="filter-group">
+      <span class="filter-label">Reporting period</span>
+      <div class="seg" id="yearseg" role="group" aria-label="Reporting period">
+        <button data-years="default" aria-pressed="true">2024–2025</button>
+        <button data-years="all">All years</button>
+        <button data-years="2023">2023</button>
+        <button data-years="2024">2024</button>
+        <button data-years="2025">2025</button>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <button class="iconbtn" id="themebtn" title="Toggle light/dark" aria-label="Toggle theme">◐</button>
+  </div>
+  <p class="note" id="windownote"></p>
+
+  <main>
+    <div class="section-title">Headline metrics</div>
+    <section class="kpis" id="kpis"></section>
+
+    <div class="section-title">Volume &amp; trend</div>
+    <div class="grid">
+      <div class="card col-8">
+        <h3>Tickets created over time</h3>
+        <p class="hint">Monthly volume. Timestamps drive trend only (see Data Quality).</p>
+        <div class="chart" id="c_trend"></div>
+      </div>
+      <div class="card col-4">
+        <h3>By theme</h3>
+        <p class="hint">Five reporting themes.</p>
+        <div class="chart" id="c_theme"></div>
+      </div>
+    </div>
+
+    <div class="section-title">Ticket issues</div>
+    <div class="grid">
+      <div class="card col-6">
+        <h3>By category</h3>
+        <p class="hint">Cleaned to 10 canonical categories (from 32 raw variants).</p>
+        <div class="chart tall" id="c_category"></div>
+        <details class="tableview"><summary>Table view</summary><div id="t_category"></div></details>
+      </div>
+      <div class="card col-6">
+        <h3>By service area</h3>
+        <p class="hint">Which product surface generates load.</p>
+        <div class="chart tall" id="c_service"></div>
+        <details class="tableview"><summary>Table view</summary><div id="t_service"></div></details>
+      </div>
+    </div>
+
+    <div class="section-title">Status &amp; time to resolution</div>
+    <div class="grid">
+      <div class="card col-4">
+        <h3>Ticket status</h3>
+        <p class="hint">Lifecycle distribution.</p>
+        <div class="chart" id="c_status"></div>
+      </div>
+      <div class="card col-4">
+        <h3>Time to resolution</h3>
+        <p class="hint">Resolved/Closed tickets, by band (provided field).</p>
+        <div class="chart" id="c_restime"></div>
+      </div>
+      <div class="card col-4">
+        <h3>SLA: target vs actual</h3>
+        <p class="hint">Avg hours by priority. Bars share one hour axis.</p>
+        <div class="chart" id="c_sla"></div>
+      </div>
+    </div>
+
+    <div class="section-title">External data · NZ holidays &amp; business days</div>
+    <div class="grid">
+      <div class="card col-6">
+        <h3>Average tickets per day, by day type</h3>
+        <p class="hint">Ticket dates joined to the NZ business-day calendar. Volume ÷ number of such days.</p>
+        <div class="chart" id="c_daytype"></div>
+      </div>
+      <div class="card col-6">
+        <h3>Business days to resolve</h3>
+        <p class="hint">Working days (excl. weekends &amp; public holidays) from created to resolved.</p>
+        <div class="chart" id="c_bdays"></div>
+      </div>
+    </div>
+
+    <div class="section-title">Team &amp; region</div>
+    <div class="grid">
+      <div class="card col-6">
+        <h3>Team performance</h3>
+        <p class="hint">Volume, SLA breach rate and CSAT by team.</p>
+        <div class="chart" id="c_team"></div>
+        <details class="tableview"><summary>Table view</summary><div id="t_team"></div></details>
+      </div>
+      <div class="card col-6">
+        <h3>Tickets by region</h3>
+        <p class="hint">NZ regions — Auckland dominates volume.</p>
+        <div class="chart" id="c_region"></div>
+      </div>
+    </div>
+
+    <div class="section-title">Data quality — a finding for the ops manager</div>
+    <div class="grid">
+      <div class="card col-12 dq">
+        <h3>The SLA flag doesn't match the numbers <span class="badge warn">⚠ audit source system</span></h3>
+        <p class="hint">The export's <code>sla_breached</code> flag agrees with a recomputation
+          (<code>resolution_time &gt; sla_target</code>) only about half the time — no better than chance.
+          Reporting uses the system-of-record field; this panel makes the gap visible rather than hiding it.</p>
+        <div class="grid" style="margin-top:6px">
+          <div class="card col-6" style="box-shadow:none">
+            <div class="chart short" id="c_dq"></div>
+          </div>
+          <div class="col-6">
+            <div class="dq-flags" id="dqflags"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <script src="vendor/echarts.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
