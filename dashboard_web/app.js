@@ -186,14 +186,16 @@
     // SLA target vs actual by priority (grouped bar, one hour axis)
     const prOrder = ["Low", "Medium", "High", "Urgent"];
     const yrs = new Set(selectedYears());
+    // actual resolution avg = correctly pooled res_sum/res_n from the priority dim
+    const prAvgRes = new Map(dim("priority").map((r) => [r.value, r.avg_res]));
     const tgt = [], act = [];
     for (const pr of prOrder) {
-      let tw = 0, aw = 0, nn = 0;
+      let tw = 0, nn = 0;  // target is a per-ticket constant -> weight by n is correct
       const byY = D.sla_target_by_priority[pr] || {};
-      for (const y in byY) if (yrs.has(parseInt(y, 10))) {
-        const o = byY[y]; tw += o.target_avg * o.n; if (o.actual_avg != null) aw += o.actual_avg * o.n; nn += o.n;
-      }
-      tgt.push(nn ? +(tw / nn).toFixed(1) : 0); act.push(nn ? +(aw / nn).toFixed(1) : 0);
+      for (const y in byY) if (yrs.has(parseInt(y, 10))) { const o = byY[y]; tw += o.target_avg * o.n; nn += o.n; }
+      tgt.push(nn ? +(tw / nn).toFixed(1) : 0);
+      const a = prAvgRes.get(pr);
+      act.push(a != null ? +a.toFixed(1) : 0);
     }
     inst("c_sla").setOption({
       grid: baseGrid(ch, { top: 30, bottom: 6 }),

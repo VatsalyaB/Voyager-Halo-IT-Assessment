@@ -89,10 +89,14 @@ def main() -> None:
         key = "category" if col == "category_clean" else col
         data["dims"][key] = agg_dim(df, col)
 
-    # day-type calendar day counts per year (for avg tickets/day by day type)
+    # day-type calendar day counts per year (for avg tickets/day by day type).
+    # Clip to the span the ticket data actually covers (2023-07 .. 2025-03) so a year
+    # with calendar days but ~no tickets (2025) doesn't inflate the denominator and
+    # halve the per-day averages.
     cal = pd.read_csv(ROOT / "data" / "external" / "nz_business_calendar.csv",
                       parse_dates=["date"])
-    cal = cal[cal["date"].dt.year.isin(data["meta"]["years"])]
+    lo, hi = df["created_date"].min(), df["created_date"].max()
+    cal = cal[(cal["date"] >= lo) & (cal["date"] <= hi)]
     cal["day_type"] = np.select(
         [cal["is_national_holiday"], cal["is_weekend"]],
         ["Public Holiday", "Weekend"], default="Business Day")

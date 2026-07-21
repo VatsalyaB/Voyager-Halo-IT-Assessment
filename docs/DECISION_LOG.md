@@ -94,3 +94,17 @@ NL→SQL; a deterministic keyword router is the no-key fallback; **all** paths r
 executor (SELECT-only, single statement, forbidden-keyword block, auto-LIMIT) so the agent can never
 mutate data. It queries the cleaned Parquet, and I exposed the **cleaned** category (not the raw
 variant column) after catching that in testing. Default model `claude-opus-4-8`, overridable via env.
+
+### D15 — Adversarial self-review caught five bugs the happy path missed
+**Why:** After building, I ran a structured adversarial review of the deliverables. My own
+testing used the happy path (live API, well-formed queries, single-year checks) and missed edge
+cases. The review confirmed and I fixed: (1) `fetch_holidays` crashed on the **offline fallback**
+(empty regional map → `sort_values` KeyError); (2) the dashboard's **avg-tickets-per-day** divided
+by a calendar-day denominator that included 2025's near-empty full year, halving the numbers —
+now clipped to the data's actual date span (≈153/day, not ≈92); (3) the **SLA actual-avg** bar was
+weighted by total tickets instead of resolved tickets — now uses the correctly pooled resolution
+average; (4) **security:** the agent's read-only gate blocked mutations but not DuckDB's file-read
+functions (`read_text`/`glob`/…) — a query could read local files; fixed by `SET
+enable_external_access=false` after load plus a keyword block; (5) the **row cap** could be defeated
+by a trailing SQL comment — fixed by wrapping queries in a capped subquery. Lesson worth keeping:
+verify the failure paths, not just the demo.

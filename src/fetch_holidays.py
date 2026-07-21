@@ -142,6 +142,9 @@ def region_holiday_map(holidays: pd.DataFrame) -> pd.DataFrame:
             if codes & set(region_codes):
                 out.append({"region": region, "date": r["date"],
                             "holiday_name": r["holiday_name"]})
+    cols = ["region", "date", "holiday_name"]
+    if not out:  # offline fallback has national holidays only -> empty regional map
+        return pd.DataFrame(columns=cols)
     return pd.DataFrame(out).drop_duplicates().sort_values(["region", "date"])
 
 

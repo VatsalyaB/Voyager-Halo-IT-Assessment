@@ -58,7 +58,10 @@ SMALL_CARDINALITY = ["category", "theme", "service_area", "priority", "status",
 
 _FORBIDDEN = re.compile(
     r"\b(insert|update|delete|drop|create|alter|attach|copy|pragma|install|load|call|"
-    r"set|export|import|grant|revoke|truncate)\b", re.IGNORECASE)
+    r"set|export|import|grant|revoke|truncate|"
+    # DuckDB file-access table functions — block filesystem reads through the gate
+    r"read_text|read_csv|read_csv_auto|read_parquet|read_json|read_json_auto|read_ndjson|"
+    r"read_blob|glob|parquet_scan|sniff_csv|readdir)\b", re.IGNORECASE)
 
 
 class TicketQueryEngine:
@@ -68,6 +71,9 @@ class TicketQueryEngine:
         self.con.execute(
             "CREATE TABLE tickets AS SELECT * EXCLUDE (category, category_clean), "
             f"category_clean AS category FROM read_parquet('{parquet.as_posix()}')")
+        # table is now materialised in memory -> hard-disable filesystem access so no
+        # later query (LLM-generated or injected) can read local files via read_text/glob/etc.
+        self.con.execute("SET enable_external_access=false")
         self.n_rows = self.con.execute("SELECT COUNT(*) FROM tickets").fetchone()[0]
         self._values = {c: [r[0] for r in self.con.execute(
             f'SELECT DISTINCT "{c}" FROM tickets WHERE "{c}" IS NOT NULL ORDER BY 1').fetchall()]
@@ -96,9 +102,10 @@ class TicketQueryEngine:
             raise ValueError("Only a single statement is allowed.")
         if _FORBIDDEN.search(s):
             raise ValueError("Query contains a forbidden keyword (read-only access only).")
-        if not re.search(r"\blimit\b", low):
-            s += f" LIMIT {max_rows}"
-        return self.con.execute(s).fetchdf()
+        # cap rows by wrapping in a subquery: robust against a trailing comment eating an
+        # appended LIMIT, and against a large inner result with no LIMIT of its own
+        capped = f"SELECT * FROM (\n{s}\n) AS _capped LIMIT {max_rows}"
+        return self.con.execute(capped).fetchdf()
 
     # ---- deterministic fallback (no API key) -------------------------------
     def local_answer(self, q: str) -> tuple[str, pd.DataFrame, str]:
