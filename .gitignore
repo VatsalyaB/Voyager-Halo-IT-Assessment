@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# Secrets
+.env
+*.key
+# OS
+.DS_Store
+Thumbs.db
+# Node
+node_modules/
+# Large intermediate (regenerate via src/)
+data/processed/*.parquet
