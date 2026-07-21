@@ -62,3 +62,35 @@ history, and flag the mismatch in the Review (optional email to Anj drafted sepa
 a fast compact fact table; DuckDB as the agent's SQL engine and for quick analytics; the star
 schema (fact + dim_date/dim_customer/dim_category) is emitted as CSVs for Power BI. Low-cardinality
 attributes stay on the fact (Power BI slices them without a dim).
+
+### D10 — Web dashboard: pre-aggregate to JSON, don't ship 100k rows
+**Why:** The browser only needs aggregates. `build_dashboard_data.py` pre-computes every chart's
+numbers **per (value × year)** into a 43 KB `data.js`, so the year filter recomputes rates client-side
+for any year selection while the page still loads instantly. Emitted as `data.js` (a `<script src>`)
+not just `data.json` so the file works via `file://` (fetch of local JSON is blocked; a script tag isn't).
+
+### D11 — Vendored ECharts + CVD-validated palette
+**Why:** ECharts is vendored locally so the dashboard is self-contained (works offline / on GitHub
+Pages, no CDN). Colours come from the dataviz reference palette and were **validated with a script**
+(colour-blind separation, contrast) rather than by eye; magnitude charts use a single hue (identity is
+on the axis), small categorical sets ≤5, and status/priority use ordinal ramps.
+
+### D12 — Data-Quality panel turns the mess into an insight
+**Why:** Instead of hiding the SLA reconciliation gap, the dashboard shows provided-vs-recomputed
+breach side by side plus agreement %, impossible-timeline count, and rows cleaned — an actionable
+finding for the ops manager (audit the source system). Verified in a real browser (no JS errors,
+light+dark, filter recompute).
+
+### D13 — Power BI delivered as model + build guide (not a hand-built pbix)
+**Why:** Authoring a `.pbix` programmatically is fragile; a complete, correct build guide + model-ready
+CSVs is reliable and reproducible, and doubles as hands-on Power BI practice. The guide specifies every
+relationship, all 15 DAX measures, and six pages mirroring the web dashboard. Caught and fixed two
+data-type traps in review: `customer_id` is a string key (typing it numeric would break the customer
+join) and `created_week` is a date.
+
+### D14 — AI agent: API-agnostic with a read-only gate and offline fallback
+**Why:** The agent must work regardless of which LLM key (if any) is available. Claude/OpenAI do
+NL→SQL; a deterministic keyword router is the no-key fallback; **all** paths run through one safe
+executor (SELECT-only, single statement, forbidden-keyword block, auto-LIMIT) so the agent can never
+mutate data. It queries the cleaned Parquet, and I exposed the **cleaned** category (not the raw
+variant column) after catching that in testing. Default model `claude-opus-4-8`, overridable via env.
