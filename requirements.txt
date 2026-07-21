@@ -1,0 +1,12 @@
+# Core data pipeline
+pandas>=2.2
+openpyxl>=3.1
+pyarrow>=15
+requests>=2.31
+# Analytics + agent query engine
+duckdb>=1.0
+# AI agent UI
+streamlit>=1.36
+# Optional LLM adapters (agent works without them via local fallback)
+anthropic>=0.39
+openai>=1.40

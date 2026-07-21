@@ -1,0 +1,70 @@
+date,holiday_name,local_name,is_national,counties,scope,source
+2023-01-02,New Year's Day,New Year's Day,True,,National,Nager.Date
+2023-01-03,Day after New Year's Day,Day after New Year's Day,True,,National,Nager.Date
+2023-01-23,Wellington Anniversary Day,Wellington Anniversary Day,False,NZ-WGN;NZ-MWT,Regional,Nager.Date
+2023-01-30,Auckland Anniversary Day,Auckland/Northland Anniversary Day,False,NZ-AUK;NZ-NTL;NZ-WKO;NZ-GIS;NZ-BOP,Regional,Nager.Date
+2023-01-30,Nelson Anniversary Day,Nelson Anniversary Day,False,NZ-NSN,Regional,Nager.Date
+2023-02-06,Waitangi Day,Waitangi Day,True,,National,Nager.Date
+2023-03-13,Taranaki Anniversary Day,Taranaki Anniversary Day,False,NZ-TKI,Regional,Nager.Date
+2023-03-20,Otago Anniversary Day,Otago Anniversary Day,False,NZ-OTA,Regional,Nager.Date
+2023-04-07,Good Friday,Good Friday,True,,National,Nager.Date
+2023-04-10,Easter Monday,Easter Monday,True,,National,Nager.Date
+2023-04-11,Southland Anniversary Day,Southland Anniversary Day,False,NZ-STL,Regional,Nager.Date
+2023-04-25,Anzac Day,Anzac Day,True,,National,Nager.Date
+2023-06-05,King's Birthday,King's Birthday,True,,National,Nager.Date
+2023-07-14,Matariki,Matariki,True,,National,Nager.Date
+2023-09-25,Canterbury (South) Anniversary Day,Dominion Day,False,NZ-CAN,Regional,Nager.Date
+2023-10-20,Hawke's Bay Anniversary Day,Hawke's Bay Anniversary Day,False,NZ-HKB,Regional,Nager.Date
+2023-10-23,Labour Day,Labour Day,True,,National,Nager.Date
+2023-10-30,Marlborough Anniversary Day,Marlborough Anniversary Day,False,NZ-MBH,Regional,Nager.Date
+2023-11-17,Canterbury Anniversary Day,Canterbury (North & Central) Anniversary Day,False,NZ-CAN,Regional,Nager.Date
+2023-11-27,Chatham Islands Anniversary Day,Chatham Islands Anniversary Day,False,NZ-CIT,Regional,Nager.Date
+2023-12-04,Westland Anniversary Day,Westland Anniversary Day,False,NZ-WTC,Regional,Nager.Date
+2023-12-25,Christmas Day,Christmas Day,True,,National,Nager.Date
+2023-12-26,Boxing Day,Boxing Day,True,,National,Nager.Date
+2024-01-01,New Year's Day,New Year's Day,True,,National,Nager.Date
+2024-01-02,Day after New Year's Day,Day after New Year's Day,True,,National,Nager.Date
+2024-01-22,Wellington Anniversary Day,Wellington Anniversary Day,False,NZ-WGN;NZ-MWT,Regional,Nager.Date
+2024-01-29,Auckland Anniversary Day,Auckland/Northland Anniversary Day,False,NZ-AUK;NZ-NTL;NZ-WKO;NZ-GIS;NZ-BOP,Regional,Nager.Date
+2024-01-29,Nelson Anniversary Day,Nelson Anniversary Day,False,NZ-NSN,Regional,Nager.Date
+2024-02-06,Waitangi Day,Waitangi Day,True,,National,Nager.Date
+2024-03-11,Taranaki Anniversary Day,Taranaki Anniversary Day,False,NZ-TKI,Regional,Nager.Date
+2024-03-25,Otago Anniversary Day,Otago Anniversary Day,False,NZ-OTA,Regional,Nager.Date
+2024-03-29,Good Friday,Good Friday,True,,National,Nager.Date
+2024-04-01,Easter Monday,Easter Monday,True,,National,Nager.Date
+2024-04-02,Southland Anniversary Day,Southland Anniversary Day,False,NZ-STL,Regional,Nager.Date
+2024-04-25,Anzac Day,Anzac Day,True,,National,Nager.Date
+2024-06-03,King's Birthday,King's Birthday,True,,National,Nager.Date
+2024-06-28,Matariki,Matariki,True,,National,Nager.Date
+2024-09-23,Canterbury (South) Anniversary Day,Dominion Day,False,NZ-CAN,Regional,Nager.Date
+2024-10-25,Hawke's Bay Anniversary Day,Hawke's Bay Anniversary Day,False,NZ-HKB,Regional,Nager.Date
+2024-10-28,Labour Day,Labour Day,True,,National,Nager.Date
+2024-11-04,Marlborough Anniversary Day,Marlborough Anniversary Day,False,NZ-MBH,Regional,Nager.Date
+2024-11-15,Canterbury Anniversary Day,Canterbury (North & Central) Anniversary Day,False,NZ-CAN,Regional,Nager.Date
+2024-12-02,Chatham Islands Anniversary Day,Chatham Islands Anniversary Day,False,NZ-CIT,Regional,Nager.Date
+2024-12-02,Westland Anniversary Day,Westland Anniversary Day,False,NZ-WTC,Regional,Nager.Date
+2024-12-25,Christmas Day,Christmas Day,True,,National,Nager.Date
+2024-12-26,Boxing Day,Boxing Day,True,,National,Nager.Date
+2025-01-01,New Year's Day,New Year's Day,True,,National,Nager.Date
+2025-01-02,Day after New Year's Day,Day after New Year's Day,True,,National,Nager.Date
+2025-01-20,Wellington Anniversary Day,Wellington Anniversary Day,False,NZ-WGN;NZ-MWT,Regional,Nager.Date
+2025-01-27,Auckland Anniversary Day,Auckland/Northland Anniversary Day,False,NZ-AUK;NZ-NTL;NZ-WKO;NZ-GIS;NZ-BOP,Regional,Nager.Date
+2025-02-03,Nelson Anniversary Day,Nelson Anniversary Day,False,NZ-NSN,Regional,Nager.Date
+2025-02-06,Waitangi Day,Waitangi Day,True,,National,Nager.Date
+2025-03-10,Taranaki Anniversary Day,Taranaki Anniversary Day,False,NZ-TKI,Regional,Nager.Date
+2025-03-24,Otago Anniversary Day,Otago Anniversary Day,False,NZ-OTA,Regional,Nager.Date
+2025-04-18,Good Friday,Good Friday,True,,National,Nager.Date
+2025-04-21,Easter Monday,Easter Monday,True,,National,Nager.Date
+2025-04-22,Southland Anniversary Day,Southland Anniversary Day,False,NZ-STL,Regional,Nager.Date
+2025-04-25,Anzac Day,Anzac Day,True,,National,Nager.Date
+2025-06-02,King's Birthday,King's Birthday,True,,National,Nager.Date
+2025-06-20,Matariki,Matariki,True,,National,Nager.Date
+2025-09-22,Canterbury (South) Anniversary Day,Dominion Day,False,NZ-CAN,Regional,Nager.Date
+2025-10-24,Hawke's Bay Anniversary Day,Hawke's Bay Anniversary Day,False,NZ-HKB,Regional,Nager.Date
+2025-10-27,Labour Day,Labour Day,True,,National,Nager.Date
+2025-11-03,Marlborough Anniversary Day,Marlborough Anniversary Day,False,NZ-MBH,Regional,Nager.Date
+2025-11-14,Canterbury Anniversary Day,Canterbury (North & Central) Anniversary Day,False,NZ-CAN,Regional,Nager.Date
+2025-12-01,Chatham Islands Anniversary Day,Chatham Islands Anniversary Day,False,NZ-CIT,Regional,Nager.Date
+2025-12-01,Westland Anniversary Day,Westland Anniversary Day,False,NZ-WTC,Regional,Nager.Date
+2025-12-25,Christmas Day,Christmas Day,True,,National,Nager.Date
+2025-12-26,Boxing Day,Boxing Day,True,,National,Nager.Date

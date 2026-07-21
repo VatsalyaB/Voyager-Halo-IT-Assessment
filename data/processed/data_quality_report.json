@@ -1,0 +1,62 @@
+{
+  "rows_in": 100851,
+  "category_raw_variants": 32,
+  "category_unmapped_rows": 0,
+  "category_rows_renormalised": 20832,
+  "category_canonical_count": 10,
+  "rows_dropped_bad_created_year": 8,
+  "bad_created_years": {
+    "1970": 5,
+    "2099": 3
+  },
+  "rows_resolved_before_created": 50,
+  "created_has_intraday_time": false,
+  "null_handling": {
+    "account_manager": {
+      "filled": 66952,
+      "value": "Unassigned"
+    },
+    "industry": {
+      "filled": 31766,
+      "value": "Unknown"
+    },
+    "company_name": {
+      "filled": 30994,
+      "value": "Unknown"
+    },
+    "team": {
+      "filled": 2017,
+      "value": "Unassigned"
+    },
+    "assigned_to": {
+      "filled": 2017,
+      "value": "Unassigned"
+    },
+    "resolution_notes": {
+      "filled": 1205,
+      "value": "No notes recorded"
+    },
+    "browser": {
+      "filled": 21903,
+      "value": "N/A (non-web channel) / Unknown"
+    },
+    "billing_contact_email": {
+      "filled": 0,
+      "value": "left null (PII, unused)"
+    },
+    "csat_score": {
+      "filled": 0,
+      "value": "left null (excluded from CSAT avg)"
+    }
+  },
+  "sla_agreement_rate": 0.5023,
+  "sla_breach_rate_provided": 0.5025,
+  "sla_breach_rate_recomputed": 0.9171,
+  "tickets_on_regional_anniversary": 272,
+  "rows_out": 100843,
+  "created_year_distribution": {
+    "2023": 33676,
+    "2024": 67157,
+    "2025": 10
+  }
+}
