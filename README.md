@@ -75,5 +75,11 @@ python src/forecast.py              # forecast + capacity projection (forecast.j
 # then: open dashboard_web/index.html   ·   streamlit run agent/app.py
 ```
 
-## Review
-The required written review is in [`docs/REVIEW.md`](docs/REVIEW.md).
+## Documentation (`docs/`)
+- [`REVIEW.md`](docs/REVIEW.md) — the required written review (6 questions).
+- [`INSIGHTS.md`](docs/INSIGHTS.md) — findings → recommendations brief for the ops manager.
+- [`DATA_QUALITY_REPORT.md`](docs/DATA_QUALITY_REPORT.md) — every cleaning transformation, with counts.
+- [`FORECAST_METHODOLOGY.md`](docs/FORECAST_METHODOLOGY.md) — forecast + capacity method.
+- [`DECISION_LOG.md`](docs/DECISION_LOG.md) — every decision and why.
+- [`DESIGN.md`](docs/DESIGN.md) · [`WALKTHROUGH.md`](docs/WALKTHROUGH.md) · [`INTERVIEW_PREP.md`](docs/INTERVIEW_PREP.md) · [`DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) — plan, plain-English walkthrough, Q&A study sheet, demo storyboard.
+- `screenshots/` — dashboard (light/dark), agent, and `demo.gif`.

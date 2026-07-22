@@ -144,6 +144,29 @@
         </div>
       </div>
     </div>
+    <div class="section-title">Recommendations for the ops manager</div>
+    <div class="grid">
+      <div class="card col-3 rec">
+        <div class="rec-tag">SLA data</div>
+        <div class="rec-find">The breach flag disagrees with the resolution times ~50% of the time.</div>
+        <div class="rec-act">→ Audit SLA at source before trusting breach reporting.</div>
+      </div>
+      <div class="card col-3 rec">
+        <div class="rec-tag">Staffing</div>
+        <div class="rec-find">Load is flat across weekdays, weekends &amp; public holidays — no weekday peak.</div>
+        <div class="rec-act">→ Staff steadily seven days a week, not Mon–Fri.</div>
+      </div>
+      <div class="card col-3 rec">
+        <div class="rec-tag">Capacity</div>
+        <div class="rec-find">Demand is stable (~183/day); Q2 has 5 holidays → ~278 tickets per staffed day.</div>
+        <div class="rec-act">→ Baseline to the rate; pre-plan holiday cover for Q2 &amp; Q4.</div>
+      </div>
+      <div class="card col-3 rec">
+        <div class="rec-tag">Data trust</div>
+        <div class="rec-find">Random measures, mismatched free-text, implausibly flat volume.</div>
+        <div class="rec-act">→ Treat as synthetic; validate on a real extract before acting.</div>
+      </div>
+    </div>
   </main>
 
   <footer id="footer"></footer>
