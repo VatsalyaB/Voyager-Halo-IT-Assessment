@@ -16,3 +16,5 @@ data/processed/*.parquet
 # Internal working notes — kept locally, not part of the submission
 docs/HANDOFF.md
 docs/SUBMISSION.md
+# Employer-provided assessment brief — kept locally, not republished publicly
+docs/brief.docx
