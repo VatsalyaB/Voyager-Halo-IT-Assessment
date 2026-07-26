@@ -108,8 +108,8 @@ bypass) — a reminder to verify the failure paths, not just the demo.
 
 Yes — transparently, and the brief explicitly invites it. I used **Claude (an AI coding
 assistant)** as a pair-programmer throughout: to accelerate profiling, to draft and iterate on
-the pandas pipeline and the dashboard/agent code, to generate the Power BI build guide from my
-star-schema spec, and to help write up documentation. I directed the work and made the analytical
+the pandas pipeline and the dashboard/agent code, to generate the Power BI build guide and build
+out the 6-page report from my star-schema spec, and to help write up documentation. I directed the work and made the analytical
 judgement calls myself — in particular the data-quality findings in §4, the decision to treat the
 provided SLA fields as system-of-record while surfacing the discrepancy, the choice of external
 data source, and the taxonomy. Every number in the dashboards and the data-quality report is

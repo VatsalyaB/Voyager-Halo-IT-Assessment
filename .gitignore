@@ -13,3 +13,6 @@ Thumbs.db
 node_modules/
 # Large intermediate (regenerate via src/)
 data/processed/*.parquet
+# Internal working notes — kept locally, not part of the submission
+docs/HANDOFF.md
+docs/SUBMISSION.md
