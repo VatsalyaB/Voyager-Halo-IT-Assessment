@@ -21,7 +21,7 @@ raised, *how* they're handled, and *where* to improve, from a 100,851-row ticket
 │  └─ processed/   fact_tickets.parquet/csv + star/ (Power BI-ready star schema)
 ├─ src/            clean_data.py · fetch_holidays.py · build_star_schema.py · build_dashboard_data.py
 ├─ dashboard_web/  self-contained ECharts dashboard (Part 2 — "or equivalent")
-├─ powerbi/        BUILD_GUIDE.md + dax_measures.md + star-schema CSVs (Part 2 — Power BI)
+├─ powerbi/        TechSolve Support Operations.pbix (6-page report) + BUILD_GUIDE.md + dax_measures.md
 ├─ agent/          DuckDB + Claude/OpenAI + local-fallback NL agent (Part 3)
 └─ docs/           DESIGN.md · DATA_QUALITY_REPORT.md · DECISION_LOG.md · REVIEW.md · screenshots/
 ```
@@ -39,8 +39,10 @@ raised, *how* they're handled, and *where* to improve, from a 100,851-row ticket
   KPIs · issues · status/resolution · **holiday/business-day view** · team/region · **data-quality panel**
   · a **forecast & business-day capacity projection** (beyond the essentials — see below).
   Open `dashboard_web/index.html`. ([light](docs/screenshots/dashboard-light.png) · [dark](docs/screenshots/dashboard-dark.png))
-- **Power BI** — model-ready star-schema CSVs + a complete step-by-step build guide
-  (relationships, all 15 DAX measures, six pages): [`powerbi/BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md).
+- **Power BI** — a complete **6-page report** (`powerbi/TechSolve Support Operations.pbix`) on a
+  star-schema model (Overview · Ticket Issues · Status & Resolution · External Data · Team & Region ·
+  Data Quality), plus the model-ready CSVs and a step-by-step
+  [`BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md) + [`dax_measures.md`](powerbi/dax_measures.md).
 
 ### Part 3 — AI agent  (`agent/`)
 Ask the data questions in plain English. Claude/OpenAI translate to DuckDB SQL (read-only),
@@ -81,5 +83,5 @@ python src/forecast.py              # forecast + capacity projection (forecast.j
 - [`DATA_QUALITY_REPORT.md`](docs/DATA_QUALITY_REPORT.md) — every cleaning transformation, with counts.
 - [`FORECAST_METHODOLOGY.md`](docs/FORECAST_METHODOLOGY.md) — forecast + capacity method.
 - [`DECISION_LOG.md`](docs/DECISION_LOG.md) — every decision and why.
-- [`DESIGN.md`](docs/DESIGN.md) · [`WALKTHROUGH.md`](docs/WALKTHROUGH.md) · [`INTERVIEW_PREP.md`](docs/INTERVIEW_PREP.md) · [`DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) — plan, plain-English walkthrough, Q&A study sheet, demo storyboard.
+- [`DESIGN.md`](docs/DESIGN.md) — architecture & design notes.
 - `screenshots/` — dashboard (light/dark), agent, and `demo.gif`.
