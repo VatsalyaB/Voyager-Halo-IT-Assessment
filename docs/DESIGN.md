@@ -37,7 +37,7 @@ questions about the data, and (4) write a reflective review.
      `resolved − created`.
    - `sla_breached` agrees with recomputation (`resolution_time_hours > sla_target_hours`)
      only **50.2%** of the time — no better than chance.
-   - **53 tickets** have `resolved_date < created_date` (impossible).
+   - **50 tickets** have `resolved_date < created_date` (impossible).
    - **Every** ticket has a `resolved_date`, including `Open`/`In Progress` — so the
      resolved timestamp is unreliable as a "was it resolved?" signal.
 4. **Date range vs brief mismatch.** By `ticket_created_date`: 1970 ×5, **2023 ×33,676**,
@@ -62,7 +62,7 @@ rules** rather than silently trusting any single column:
   metrics (clean-ranged, complete, explicitly labeled). Time-to-resolution charts restrict
   to `status ∈ {Resolved, Closed}`.
 - **Data-quality panel:** surface the reconciliation gaps (SLA flag vs recomputation 50%;
-  53 negative durations) as an *insight* for the ops manager — "your SLA flag disagrees
+  50 negative durations) as an *insight* for the ops manager — "your SLA flag disagrees
   with your resolution times; audit the source system."
 - **Business-hours SLA (derived, illustrative):** using the NZ holiday + business-day
   calendar, show how SLA compliance would look measured in business hours (excl. weekends
@@ -103,9 +103,9 @@ derived fields), `fetch_holidays.py` (external source), `build_star_schema.py`
   in-browser here). Pre-aggregated compact JSON so 100k rows stay fast. Sections:
   Overview KPIs · Ticket Issues (theme/category, service area) · Status · Time-to-Resolution
   & SLA · Holiday/business-day combined visual · Team & Regional · Data-Quality panel.
-- **Power BI** (`powerbi/`): model-ready star-schema CSVs + `BUILD_GUIDE.md` (relationships,
-  every DAX measure, page-by-page visual specs). Candidate assembles the `.pbix` in Power BI
-  Desktop (being installed).
+- **Power BI** (`powerbi/`): a **built 6-page `.pbix`** (10 DAX measures) on the star-schema model,
+  plus model-ready CSVs + `BUILD_GUIDE.md` (relationships, DAX measures, page-by-page visual specs) as
+  the reproducible spec.
 
 ### Part 3 — AI agent (`agent/`)
 Streamlit chat over the cleaned data. **NL → SQL over DuckDB** (schema + few-shot in prompt),

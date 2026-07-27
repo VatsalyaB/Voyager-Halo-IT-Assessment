@@ -31,7 +31,7 @@ reproducible offline.
 3. **Model.** Built a star schema (fact + `dim_date` / `dim_customer` / `dim_category`) so both
    the Power BI model and the analytics are clean and reusable.
 4. **Visualise (Part 2).** A self-contained web dashboard (built and verified in a real browser)
-   plus a complete Power BI build guide with every DAX measure, so the story is told both ways. As a
+   plus a **built 6-page Power BI `.pbix`** (`powerbi/TechSolve Support Operations.pbix`) with a build guide documenting every DAX measure, so the story is told both ways. As a
    "beyond the essentials" addition I also built a caveated **volume forecast** and a **business-day
    capacity projection**.
 5. **AI agent (Part 3).** A DuckDB query layer with a read-only safety gate, an LLM text-to-SQL
@@ -48,7 +48,7 @@ reproducible offline.
 | **DuckDB** | agent's query engine | In-process SQL directly over Parquet — no DB server to stand up; ideal for read-only analytical queries. |
 | **ECharts (vendored)** | web dashboard | Rich, dependency-free once vendored; the file works offline and on GitHub Pages. |
 | **Streamlit** | agent UI | Fastest way to a clean chat interface over Python. |
-| **Power BI Desktop** | the "expected" dashboard | Directly matches the brief; I delivered a model + build guide so it's reproducible. |
+| **Power BI Desktop** | the "expected" dashboard | Directly matches the brief; I delivered a **built 6-page `.pbix`** on a star-schema model, plus a build guide, so it's reproducible. |
 | **Claude (AI assistant)** | pair-programming throughout | See §6. |
 
 I deliberately picked a **CVD-safe, accessibility-checked colour palette** for the dashboard and
@@ -66,7 +66,7 @@ It's synthetic with several independently-randomised fields, so the usual assump
   date regardless of status.
 - The free-text `issue_description`/`resolution_notes` are randomly assigned and don't correspond
   to the category, so they're not usable for analysis.
-- The export is ~99.98% **2024** by created date, despite the brief mentioning **2024–2025**.
+- By created date the whole export is ~**67% 2024 / ~33% 2023** (2025 has just **10** rows); it's within the brief's default **2024–2025** view that 2024 is ~**99.98%** — despite the brief mentioning **2024–2025**.
 
 The key judgement call was **how to report a metric whose source fields contradict each other**.
 I chose to treat the ticketing system's provided fields as the *system of record* (that's what an

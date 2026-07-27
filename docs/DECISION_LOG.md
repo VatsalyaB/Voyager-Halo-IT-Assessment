@@ -81,10 +81,11 @@ breach side by side plus agreement %, impossible-timeline count, and rows cleane
 finding for the ops manager (audit the source system). Verified in a real browser (no JS errors,
 light+dark, filter recompute).
 
-### D13 — Power BI delivered as model + build guide (not a hand-built pbix)
-**Why:** Authoring a `.pbix` programmatically is fragile; a complete, correct build guide + model-ready
-CSVs is reliable and reproducible, and doubles as hands-on Power BI practice. The guide specifies every
-relationship, all 15 DAX measures, and six pages mirroring the web dashboard. Caught and fixed two
+### D13 — Power BI delivered as a built 6-page `.pbix` + a reproducible build guide
+**Why:** I hand-built the 6-page `.pbix` in Power BI Desktop on the star-schema model (**10** DAX
+measures), keeping the build guide + model-ready CSVs alongside it as a reliable, reproducible spec (and
+hands-on Power BI practice). The guide specifies every relationship, the DAX measures, and six pages
+mirroring the web dashboard. Caught and fixed two
 data-type traps in review: `customer_id` is a string key (typing it numeric would break the customer
 join) and `created_week` is a date.
 
@@ -101,7 +102,7 @@ testing used the happy path (live API, well-formed queries, single-year checks) 
 cases. The review confirmed and I fixed: (1) `fetch_holidays` crashed on the **offline fallback**
 (empty regional map → `sort_values` KeyError); (2) the dashboard's **avg-tickets-per-day** divided
 by a calendar-day denominator that included 2025's near-empty full year, halving the numbers —
-now clipped to the data's actual date span (≈153/day, not ≈92); (3) the **SLA actual-avg** bar was
+now clipped to the data's actual date span (≈183/day, not ≈92); (3) the **SLA actual-avg** bar was
 weighted by total tickets instead of resolved tickets — now uses the correctly pooled resolution
 average; (4) **security:** the agent's read-only gate blocked mutations but not DuckDB's file-read
 functions (`read_text`/`glob`/…) — a query could read local files; fixed by `SET
