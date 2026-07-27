@@ -18,11 +18,11 @@ question ──▶ agent.py ──▶ (LLM path)  NL → DuckDB SQL → run (rea
   can never modify the data.
 
 ## Files
-- `query_engine.py` — DuckDB over `data/processed/fact_tickets.parquet`; schema prompt,
+- `query_engine.py` - DuckDB over `data/processed/fact_tickets.parquet`; schema prompt,
   safe executor, and the local fallback engine.
-- `agent.py` — provider detection + Claude/OpenAI adapters + graceful degradation.
-- `app.py` — Streamlit chat UI (shows the answer, the result table, and the SQL used).
-- `cli.py` — terminal interface (interactive or one-shot).
+- `agent.py` - provider detection + Claude/OpenAI adapters + graceful degradation.
+- `app.py` - Streamlit chat UI (shows the answer, the result table, and the SQL used).
+- `cli.py` - terminal interface (interactive or one-shot).
 
 ## Run it
 ```bash
@@ -36,7 +36,7 @@ streamlit run agent/app.py
 python agent/cli.py                       # REPL
 python agent/cli.py "sla breach rate by team"
 
-# Optional — enable the LLM path
+# Optional - enable the LLM path
 setx ANTHROPIC_API_KEY "sk-ant-..."       # Windows; or OPENAI_API_KEY
 # (optional model override) setx ANTHROPIC_MODEL "claude-haiku-4-5"
 ```
@@ -44,7 +44,7 @@ setx ANTHROPIC_API_KEY "sk-ant-..."       # Windows; or OPENAI_API_KEY
 ## Example questions
 - "Which categories have the worst SLA breach rate?"
 - "How many tickets did we get each month?"
-- "Team performance — volume, breach rate and CSAT"
+- "Team performance - volume, breach rate and CSAT"
 - "Average resolution time by priority"
 - "Escalation rate by service area" · "Average CSAT by region" · "How many tickets in 2024?"
 
