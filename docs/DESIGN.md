@@ -1,4 +1,4 @@
-# TechSolve IT — Data & AI Specialist Practical: Design Spec
+# TechSolve IT - Data & AI Specialist Practical: Design Spec
 
 **Author:** Vatsalya Baranwal · **Date:** 2026-07-21 · **Due:** 2026-07-27
 **Role:** Data & AI Specialist (Halo IT / Voyager)
@@ -25,7 +25,7 @@ questions about the data, and (4) write a reflective review.
 
 ### 2.1 Data-quality findings (these drive the cleaning rules)
 
-1. **`category` is dirty but recoverable — pure normalization.** 32 raw variants collapse
+1. **`category` is dirty but recoverable - pure normalization.** 32 raw variants collapse
    to **10 canonical categories** via an explicit synonym map (casing/abbreviation/
    snake_case noise only, e.g. `BUG`/`Bug report`/`bug_report` → *Bug Report*). 0 unmapped.
 2. **Free-text fields are randomized, not semantic.** Each of the 10 templated
@@ -36,15 +36,15 @@ questions about the data, and (4) write a reflective review.
    - `resolution_time_hours` (range 1–240h) has **~0 correlation** (r=0.0002) with
      `resolved − created`.
    - `sla_breached` agrees with recomputation (`resolution_time_hours > sla_target_hours`)
-     only **50.2%** of the time — no better than chance.
+     only **50.2%** of the time - no better than chance.
    - **50 tickets** have `resolved_date < created_date` (impossible).
-   - **Every** ticket has a `resolved_date`, including `Open`/`In Progress` — so the
+   - **Every** ticket has a `resolved_date`, including `Open`/`In Progress` - so the
      resolved timestamp is unreliable as a "was it resolved?" signal.
 4. **Date range vs brief mismatch.** By `ticket_created_date`: 1970 ×5, **2023 ×33,676**,
    **2024 ×67,157**, 2025 ×10, 2099 ×3. The brief's "2024–2025" window is ~99.98% just
    2024; a strict filter silently drops all of 2023. → **Decision:** default the dashboard
    to 2024–2025 (per brief) with a year slicer exposing all years, and document the
-   mismatch in the Review. *(Optional: raise as a clarifying question to Anj — draft in §8.)*
+   mismatch in the Review. *(Optional: raise as a clarifying question to Anj - draft in §8.)*
 5. **Nulls (non-fabricated handling):** `account_manager` 66% → "Unassigned";
    `billing_contact_email` 56% → leave null; `industry`/`company_name` ~31% → "Unknown";
    `browser` 22% → "N/A (non-web channel)" where channel ≠ Web/Chat, else "Unknown";
@@ -62,13 +62,13 @@ rules** rather than silently trusting any single column:
   metrics (clean-ranged, complete, explicitly labeled). Time-to-resolution charts restrict
   to `status ∈ {Resolved, Closed}`.
 - **Data-quality panel:** surface the reconciliation gaps (SLA flag vs recomputation 50%;
-  50 negative durations) as an *insight* for the ops manager — "your SLA flag disagrees
+  50 negative durations) as an *insight* for the ops manager - "your SLA flag disagrees
   with your resolution times; audit the source system."
 - **Business-hours SLA (derived, illustrative):** using the NZ holiday + business-day
   calendar, show how SLA compliance would look measured in business hours (excl. weekends
   & public holidays). Clearly labeled as a derived enhancement.
 
-## 3. Category taxonomy (Part 1 — "categories and sub-categories")
+## 3. Category taxonomy (Part 1 - "categories and sub-categories")
 
 Two-level hierarchy for reporting: **Theme → Category** (the 10 canonical values as
 sub-categories).
@@ -83,22 +83,22 @@ sub-categories).
 
 ## 4. External data source
 
-- **NZ public holidays** (national + **regional anniversary days** — Auckland/Canterbury/
+- **NZ public holidays** (national + **regional anniversary days** - Auckland/Canterbury/
   Wellington/Otago Anniversary…), 2023–2025, via the Nager.Date API (fallback:
-  data.govt.nz). Regional anniversaries join to the `region` column — a genuinely
+  data.govt.nz). Regional anniversaries join to the `region` column - a genuinely
   NZ-aware touch.
 - **Derived business-day calendar:** flags each date as business day / weekend / holiday,
   enabling business-hours SLA and "tickets around holidays / long weekends" analysis.
 
 ## 5. Deliverables
 
-### Part 1 — `src/` pipeline → `data/processed/` star schema
+### Part 1 - `src/` pipeline → `data/processed/` star schema
 `clean_data.py` (normalize categories, apply taxonomy, integrity fixes, null rules,
 derived fields), `fetch_holidays.py` (external source), `build_star_schema.py`
 (fact_tickets + dim_date/dim_customer/dim_category/dim_team/dim_service_area). Emits a
 **data-quality report** documenting every transformation (feeds the Review).
 
-### Part 2 — dashboards (both)
+### Part 2 - dashboards (both)
 - **Web** (`dashboard_web/index.html`, self-contained, GitHub-Pages ready; built & verified
   in-browser here). Pre-aggregated compact JSON so 100k rows stay fast. Sections:
   Overview KPIs · Ticket Issues (theme/category, service area) · Status · Time-to-Resolution
@@ -107,14 +107,14 @@ derived fields), `fetch_holidays.py` (external source), `build_star_schema.py`
   plus model-ready CSVs + `BUILD_GUIDE.md` (relationships, DAX measures, page-by-page visual specs) as
   the reproducible spec.
 
-### Part 3 — AI agent (`agent/`)
+### Part 3 - AI agent (`agent/`)
 Streamlit chat over the cleaned data. **NL → SQL over DuckDB** (schema + few-shot in prompt),
 read-only execution, natural-language answer. **API-agnostic** (Claude *or* OpenAI) with a
 **deterministic local fallback** (intent parser → parameterized queries: trends, team
 performance, category volumes, SLA, CSAT) so it runs with no API key. Ship app + a recorded
 demo (GIF/screens).
 
-### Review — `docs/REVIEW.md`
+### Review - `docs/REVIEW.md`
 Answers the six brief questions, sourced from the running `DECISION_LOG.md`.
 
 ## 6. Tooling & rationale (seed for Review Q3)
