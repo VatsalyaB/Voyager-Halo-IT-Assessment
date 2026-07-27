@@ -1,4 +1,4 @@
-# DAX Measures — TechSolve Support Operations
+# DAX Measures - TechSolve Support Operations
 
 Create these as **measures** (not calculated columns) in Power BI Desktop. The
 recommended home is a dedicated, empty **`_Measures`** table (see
@@ -9,7 +9,7 @@ pane → **Table tools** ▸ **New measure** (or right-click the table ▸ *New
 measure*) → paste the whole `Name = expression` block into the formula bar →
 press **Enter** → click the ✓. Repeat for each measure below.
 
-### Boolean columns — read this first
+### Boolean columns - read this first
 
 Several measures filter on boolean columns (`is_genuinely_resolved`,
 `sla_breached_provided`, `escalated_flag`, etc.). These arrive from pandas as the
@@ -80,7 +80,7 @@ Avg First Response Hours = AVERAGE ( fact_tickets[first_response_time_hours] )
 
 ### SLA Breach Rate
 Share of tickets that breached SLA, using the **provided** breach flag
-(`sla_breached_provided`) — treat this as the system-of-record figure.
+(`sla_breached_provided`) - treat this as the system-of-record figure.
 **Format as Percentage.**
 
 ```dax
@@ -158,7 +158,7 @@ Avg Business Days to Resolve = AVERAGE ( fact_tickets[business_days_to_resolve] 
 ## Data-quality & external-data measures
 
 ### Resolved Before Created
-Count of tickets whose `resolved_date` precedes their `created_date` — a logical
+Count of tickets whose `resolved_date` precedes their `created_date` - a logical
 impossibility and a data-integrity red flag. Expect this to be low; any non-zero
 value is worth calling out. **Format as Whole Number.**
 
@@ -198,7 +198,7 @@ DIVIDE ( [Total Tickets], DISTINCTCOUNT ( fact_tickets[created_date] ) )
 
 > Note: `DISTINCTCOUNT` counts distinct **dates that actually appear** in the
 > filtered fact rows. If a day type has days with zero tickets, those empty days
-> are not in the fact table and so are not counted — the "per day" average is
+> are not in the fact table and so are not counted - the "per day" average is
 > over days that had at least one ticket. That is the intended reading here.
 
 ---
