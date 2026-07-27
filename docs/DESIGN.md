@@ -131,15 +131,7 @@ deliverable). Rationale captured per choice in `DECISION_LOG.md`.
 4. AI agent (local fallback first, then API adapters) + demo recording.
 5. README + Review + Decision Log finalize.
 
-## 8. Open item — optional clarifying question for Anj (candidate sends, not Claude)
-
-> *Draft (optional):* "Quick question on the dataset — the ticket export is almost entirely
-> 2023–2024 by created date (only a handful of 2025 rows). I've defaulted the dashboard to the
-> 2024–2025 window per the brief and added a year filter to expose the full history — happy to
-> re-cut it to whatever period is most useful to you. Wanted to flag it in case the intended
-> window was 2023–2024."
-
-## 9. Non-goals (YAGNI)
+## 8. Non-goals (YAGNI)
 
 No weather join (noisier, deprioritized); no live/streaming data; no ML forecasting unless
 time permits; no cloud hosting of the agent (local run + recording suffices per brief).
